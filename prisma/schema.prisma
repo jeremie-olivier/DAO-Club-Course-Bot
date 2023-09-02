@@ -1,0 +1,94 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  // provider = "postgresql"
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id               Int      @id @default(autoincrement())
+  discordUsername  String   @unique
+  discordId        String   @unique
+  discordAvatarUrl String?
+  roles            Role[]
+  answsers         Answer[]
+  currentCourseId  Int?
+  completedCourses Course[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  courseId  Int?
+}
+
+model Role {
+  id        Int      @id @default(autoincrement())
+  discordId String   @unique
+  name      String   @unique
+  users     User[]
+  course    Course?
+  courseId  Int?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Course {
+  id        Int        @id @default(autoincrement())
+  name      String     @unique
+  videoUrl  String
+  season    Season     @relation(fields: [seasonId], references: [id])
+  users     User[]
+  questions Question[]
+  answers   Answer[]
+  role      Role       @relation(fields: [roleId], references: [id])
+  roleId    Int        @unique
+  createdAt DateTime   @default(now())
+  updatedAt DateTime   @updatedAt
+  seasonId  Int
+}
+
+model Season {
+  id        Int      @id @default(autoincrement())
+  name      String   @unique
+  courses   Course[]
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Question {
+  id        Int      @id @default(autoincrement())
+  text      String
+  order     Int
+  course    Course   @relation(fields: [courseId], references: [id])
+  courseId  Int
+  answers   Answer[]
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Answer {
+  id                 Int      @id @default(autoincrement())
+  text               String
+  order              String
+  question           Question @relation(fields: [questionId], references: [id])
+  questionId         Int
+  users              User[]
+  course             Course   @relation(fields: [courseId], references: [id])
+  courseId           Int
+  isTheCorrectAnswer Boolean
+  createdAt          DateTime @default(now())
+  updatedAt          DateTime @updatedAt
+}
+
+model DiscordMsg {
+  id        Int      @id @default(autoincrement())
+  content   String
+  slug      String   @unique
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}

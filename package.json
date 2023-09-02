@@ -1,0 +1,29 @@
+{
+  "name": "DAOclub",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon --config nodemon.json src/index.ts",
+    "resetdb": "npx prisma db push --force-reset && npx prisma db seed"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/node": "^20.5.6",
+    "prisma": "^5.2.0",
+    "ts-node": "^10.9.1",
+    "typescript": "^5.2.2"
+  },
+  "dependencies": {
+    "@prisma/client": "5.2.0",
+    "discord.js": "^14.13.0",
+    "dotenv": "^16.3.1",
+    "nodemon": "^3.0.1"
+  },
+  "prisma": {
+    "seed": "ts-node ./prisma/seed/seed.ts"
+  }
+}
