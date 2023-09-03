@@ -3,7 +3,12 @@ import { addRoleToMember } from "./roleManager";
 import { log } from "console";
 
 import { Answer, PrismaClient } from "@prisma/client";
-import createAnswers from "../controllers/userAnswers";
+
+import saveUserAnswer from "../controllers/userAnswers";
+import { lessonHaveNextQuestion, getAnswers } from "../controllers/answers";
+import channels from "../config/channels";
+import { getChannelId } from "../utils";
+
 const prisma = new PrismaClient();
 
 export async function buttonsHandler(interaction: ButtonInteraction) {
@@ -15,10 +20,8 @@ export async function buttonsHandler(interaction: ButtonInteraction) {
 
   switch (interaction.customId) {
     case "get-lesson-1-role":
-      let roleId = await getRoleId("lesson-1");
+      addRoleToMember(interaction.member as GuildMember, "lesson-1");
 
-      if (!roleId) break;
-      addRoleToMember(interaction.member as GuildMember, roleId);
       let lessons1Channnel = "1146931985000968233";
       interaction.reply({
         ephemeral: true,
@@ -35,15 +38,6 @@ export async function buttonsHandler(interaction: ButtonInteraction) {
     default:
       break;
   }
-}
-
-async function getRoleId(name: string) {
-  const role = await prisma.role.findUnique({
-    where: {
-      name: name,
-    },
-  });
-  return role?.discordId;
 }
 
 async function getQuestion(courseId: number, order: number) {
@@ -94,18 +88,6 @@ async function generateAnswersText(answsers: Answer[]) {
   return answersText;
 }
 
-function getAnswers(courseId: number, questionId: number) {
-  return prisma.answer.findMany({
-    where: {
-      courseId: courseId,
-      questionId: questionId,
-    },
-    orderBy: {
-      order: "asc",
-    },
-  });
-}
-
 function generateAnswersComponents(answers: Answer[]) {
   return answers.map((answer) => {
     return {
@@ -133,7 +115,7 @@ async function handleAnswer(
 
   log(interaction.member);
 
-  createAnswers(interaction.member?.user as User, answer);
+  await saveUserAnswer(interaction.member?.user as User, answer);
 
   if (answer?.isTheCorrectAnswer) {
     await interaction.update({
@@ -141,12 +123,38 @@ async function handleAnswer(
       components: [],
     });
 
-    let reply = await generateQuestion(
-      interaction,
+    let shouldGoToNextQuestion = await lessonHaveNextQuestion(
       answer.courseId,
-      answer.questionId + 1
+      answer.questionId
     );
-    interaction.followUp(reply);
+    log(shouldGoToNextQuestion);
+    if (shouldGoToNextQuestion) {
+      let reply = await generateQuestion(
+        interaction,
+        answer.courseId,
+        answer.questionId + 1
+      );
+      interaction.followUp(reply);
+    } else {
+      let currentLessonQuestionChannelId = getChannelId(
+        `lesson-${answer.courseId}-questions`
+      );
+      let nextLessonChannelId = getChannelId(`lesson-${answer.courseId + 1}`);
+      addRoleToMember(
+        interaction.member as GuildMember,
+        `lesson-${answer.courseId + 1}`
+      );
+
+      interaction.followUp({
+        ephemeral: true,
+        content: `Congratulations, you've now answered all the questions correctly. 🙌 
+
+Jump into the <#${currentLessonQuestionChannelId}> channel and ask the community any further questions you may have on Lesson 1. 💬 
+        
+If you don't have any further questions, then move onto <#${nextLessonChannelId}> to start watching your next video. 📹 
+        `,
+      });
+    }
   } else {
     interaction.reply({
       ephemeral: true,

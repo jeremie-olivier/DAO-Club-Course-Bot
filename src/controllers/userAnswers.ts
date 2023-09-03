@@ -1,10 +1,11 @@
 import { User } from "discord.js";
 
 import { Answer, PrismaClient } from "@prisma/client";
-import { log } from "console";
 const prisma = new PrismaClient();
 
-async function createAnswers(user: User, anwser: Answer) {
+import { log } from "console";
+
+async function saveUserAnswers(user: User, anwser: Answer) {
   log(`user id  is ${user.id} `);
   log(`user username  is ${user.username} `);
   log(`user globalname  is ${user.globalName} `);
@@ -30,8 +31,6 @@ async function createAnswers(user: User, anwser: Answer) {
       },
     },
   });
-
-  // await prisma.answer.create({ data: c })
 }
 
-export default createAnswers;
+export default saveUserAnswers;
