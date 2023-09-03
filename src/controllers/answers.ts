@@ -3,11 +3,11 @@ const prisma = new PrismaClient();
 
 import { log } from "console";
 
-export function getAnswers(courseId: number, questionId: number) {
+export function getAnswers(lessonId: number, questionId: number) {
   return prisma.answer.findMany({
     where: {
-      courseId: courseId,
-      questionId: questionId,
+      lessonId,
+      questionId,
     },
     orderBy: {
       order: "asc",
@@ -16,13 +16,13 @@ export function getAnswers(courseId: number, questionId: number) {
 }
 
 export async function lessonHaveNextQuestion(
-  courseId: number,
+  lessonId: number,
   questionId: number
 ): Promise<boolean> {
-  log(`courseId ${courseId} questionId ${questionId}`);
+  log(`lessonId ${lessonId} questionId ${lessonId}`);
   let lastLessonQuestion = await prisma.question.findMany({
     where: {
-      courseId: courseId,
+      lessonId,
     },
     orderBy: {
       order: "desc",

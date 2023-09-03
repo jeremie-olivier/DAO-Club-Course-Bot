@@ -40,11 +40,11 @@ export async function buttonsHandler(interaction: ButtonInteraction) {
   }
 }
 
-async function getQuestion(courseId: number, order: number) {
-  log(`requesting question ${order} from course ${courseId}`);
+async function getQuestion(lessonId: number, order: number) {
+  log(`requesting question ${order} from lesson ${lessonId}`);
   const question = await prisma.question.findFirstOrThrow({
     where: {
-      courseId: courseId,
+      lessonId,
       order: order,
     },
   });
@@ -53,14 +53,14 @@ async function getQuestion(courseId: number, order: number) {
 
 async function generateQuestion(
   interaction: ButtonInteraction,
-  courseId: number,
+  lessonId: number,
   order: number
 ) {
-  let questionObj = await getQuestion(courseId, order);
+  let questionObj = await getQuestion(lessonId, order);
   let questionText = questionObj.text;
   let question = `Question ${questionObj.order} - ${questionText} \n\n`;
 
-  let answers = await getAnswers(courseId, questionObj.id);
+  let answers = await getAnswers(lessonId, questionObj.id);
   let answersText = await generateAnswersText(answers);
   question += answersText.join("\n");
 
@@ -124,25 +124,25 @@ async function handleAnswer(
     });
 
     let shouldGoToNextQuestion = await lessonHaveNextQuestion(
-      answer.courseId,
+      answer.lessonId,
       answer.questionId
     );
     log(shouldGoToNextQuestion);
     if (shouldGoToNextQuestion) {
       let reply = await generateQuestion(
         interaction,
-        answer.courseId,
+        answer.lessonId,
         answer.questionId + 1
       );
       interaction.followUp(reply);
     } else {
       let currentLessonQuestionChannelId = getChannelId(
-        `lesson-${answer.courseId}-questions`
+        `lesson-${answer.lessonId}-questions`
       );
-      let nextLessonChannelId = getChannelId(`lesson-${answer.courseId + 1}`);
+      let nextLessonChannelId = getChannelId(`lesson-${answer.lessonId + 1}`);
       addRoleToMember(
         interaction.member as GuildMember,
-        `lesson-${answer.courseId + 1}`
+        `lesson-${answer.lessonId + 1}`
       );
 
       interaction.followUp({

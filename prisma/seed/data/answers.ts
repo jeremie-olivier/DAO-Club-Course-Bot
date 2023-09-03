@@ -1,21 +1,21 @@
 export const answsers: any = [
   {
     questionId: 1,
-    courseId: 1,
+    lessonId: 1,
     order: "A",
     text: `Red Road Cruiser`,
     isTheCorrectAnswer: false,
   },
   {
     questionId: 1,
-    courseId: 1,
+    lessonId: 1,
     order: "B",
     text: `Remote Procedure Call`,
     isTheCorrectAnswer: true,
   },
   {
     questionId: 1,
-    courseId: 1,
+    lessonId: 1,
     order: "C",
     text: `River Point Control`,
     isTheCorrectAnswer: false,
@@ -23,21 +23,21 @@ export const answsers: any = [
 
   {
     questionId: 2,
-    courseId: 1,
+    lessonId: 1,
     order: "A",
     text: `April 1999`,
     isTheCorrectAnswer: false,
   },
   {
     questionId: 2,
-    courseId: 1,
+    lessonId: 1,
     order: "B",
     text: `January 2009`,
     isTheCorrectAnswer: true,
   },
   {
     questionId: 2,
-    courseId: 1,
+    lessonId: 1,
     order: "C",
     text: `February 2012`,
     isTheCorrectAnswer: false,
@@ -45,21 +45,21 @@ export const answsers: any = [
 
   {
     questionId: 3,
-    courseId: 1,
+    lessonId: 1,
     order: "A",
     text: `ERC-20`,
     isTheCorrectAnswer: true,
   },
   {
     questionId: 3,
-    courseId: 1,
+    lessonId: 1,
     order: "B",
     text: `ERC-271`,
     isTheCorrectAnswer: false,
   },
   {
     questionId: 3,
-    courseId: 1,
+    lessonId: 1,
     order: "C",
     text: `ERC-115`,
     isTheCorrectAnswer: false,

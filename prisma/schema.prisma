@@ -18,8 +18,8 @@ model User {
   discordAvatarUrl String?
   roles            Role[]
   answsers         Answer[]
-  currentCourseId  Int?
-  completedCourses Course[]
+  currentLessonId  Int?
+  completedLesson  Lesson[]
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -31,17 +31,16 @@ model Role {
   discordId String   @unique
   name      String   @unique
   users     User[]
-  course    Course?
-  courseId  Int?
+  lesson    Lesson?
+  lessonId  Int?
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }
 
-model Course {
+model Lesson {
   id        Int        @id @default(autoincrement())
   name      String     @unique
   videoUrl  String
-  season    Season     @relation(fields: [seasonId], references: [id])
   users     User[]
   questions Question[]
   answers   Answer[]
@@ -49,23 +48,28 @@ model Course {
   roleId    Int        @unique
   createdAt DateTime   @default(now())
   updatedAt DateTime   @updatedAt
-  seasonId  Int
+  course    Course     @relation(fields: [courseId], references: [id])
+  courseId  Int
+
+  @@map("Course")
 }
 
-model Season {
+model Course {
   id        Int      @id @default(autoincrement())
   name      String   @unique
-  courses   Course[]
+  lessons   Lesson[]
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+
+  @@map("Season")
 }
 
 model Question {
   id        Int      @id @default(autoincrement())
   text      String
   order     Int
-  course    Course   @relation(fields: [courseId], references: [id])
-  courseId  Int
+  lesson    Lesson   @relation(fields: [lessonId], references: [id])
+  lessonId  Int
   answers   Answer[]
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -78,8 +82,8 @@ model Answer {
   question           Question @relation(fields: [questionId], references: [id])
   questionId         Int
   users              User[]
-  course             Course   @relation(fields: [courseId], references: [id])
-  courseId           Int
+  lesson             Lesson   @relation(fields: [lessonId], references: [id])
+  lessonId           Int
   isTheCorrectAnswer Boolean
   createdAt          DateTime @default(now())
   updatedAt          DateTime @updatedAt

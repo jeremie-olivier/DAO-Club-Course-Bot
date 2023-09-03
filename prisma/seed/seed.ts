@@ -5,15 +5,15 @@ import {
   PrismaClient,
   Question,
   Role,
-  Season,
+  Lesson,
 } from "@prisma/client";
 
 import { roles } from "./data/roles";
 import discordMsg from "./data/discordMsg";
 
 import { log } from "console";
-import seasons from "./data/season";
-import courses from "./data/course";
+import courses from "./data/courses";
+import lessons from "./data/lessons";
 import questions from "./data/questions";
 import answsers from "./data/answers";
 
@@ -26,11 +26,11 @@ async function main() {
   log(discordMsg);
   await createDiscordMsg();
 
-  log(seasons);
-  await createSeasons();
-
   log(courses);
-  await createCourse();
+  await createCourses();
+
+  log(lessons);
+  await createLessons();
 
   log(questions);
   await createQuestions();
@@ -57,6 +57,7 @@ async function createRoles() {
       })
     )
   );
+  log(`${roles.length} Roles created`);
 }
 
 async function createDiscordMsg() {
@@ -71,10 +72,10 @@ async function createDiscordMsg() {
   console.log(`${roles.length} Discord Message created`);
 }
 
-async function createSeasons() {
+async function createCourses() {
   await Promise.all(
-    seasons.map((c: Season) =>
-      prisma.season.create({
+    courses.map((c: Course) =>
+      prisma.course.create({
         data: c,
       })
     )
@@ -83,10 +84,10 @@ async function createSeasons() {
   console.log(`${roles.length} Discord Message created`);
 }
 
-async function createCourse() {
+async function createLessons() {
   await Promise.all(
-    courses.map((c: Course) =>
-      prisma.course.create({
+    lessons.map((c: Lesson) =>
+      prisma.lesson.create({
         data: c,
       })
     )
