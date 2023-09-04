@@ -60,7 +60,7 @@ async function generateQuestion(
   let questionText = questionObj.text;
   let question = `Question ${questionObj.order} - ${questionText} \n\n`;
 
-  let answers = await getAnswers(lessonId, questionObj.id);
+  let answers = await getAnswers(lessonId, questionObj.order);
   let answersText = await generateAnswersText(answers);
   question += answersText.join("\n");
 
