@@ -6,7 +6,8 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "nodemon --config nodemon.json src/index.ts",
-    "resetdb": "npx prisma db push --force-reset && npx prisma db seed"
+    "resetdb": "npx prisma db push --force-reset && npx prisma db seed",
+    "deploySlashCommands": "ts-node ./src/deploySlashCommands.ts"
   },
   "keywords": [],
   "author": "",
