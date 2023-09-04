@@ -17,6 +17,14 @@ export async function buttonsHandler(interaction: ButtonInteraction) {
   if (interaction.customId.includes("answer-id")) {
     handleAnswer(interaction);
   }
+  if (interaction.customId.includes("start-quizz")) {
+    let courseId = parseInt(interaction.customId.split("-")[3]);
+    let lessonId = parseInt(interaction.customId.split("-")[5]);
+    log(lessonId);
+
+    let reply = await generateQuestion(interaction, lessonId, 1);
+    interaction.reply(reply);
+  }
 
   switch (interaction.customId) {
     case "get-lesson-1-role":
@@ -28,11 +36,6 @@ export async function buttonsHandler(interaction: ButtonInteraction) {
         content: `You know have access to  <#${lessons1Channnel}>`,
       });
 
-      break;
-
-    case "start-quizz-lesson-1":
-      let reply = await generateQuestion(interaction, 1, 1);
-      interaction.reply(reply);
       break;
 
     default:
@@ -57,12 +60,15 @@ async function generateQuestion(
   order: number
 ) {
   let questionObj = await getQuestion(lessonId, order);
-  let questionText = questionObj.text;
-  let question = `Question ${questionObj.order} - ${questionText} \n\n`;
+  log(questionObj);
 
-  let answers = await getAnswers(lessonId, questionObj.order);
+  let question = `Question ${questionObj.order} - ${questionObj.text} \n\n`;
+
+  let answers = await getAnswers(questionObj.id);
   let answersText = await generateAnswersText(answers);
   question += answersText.join("\n");
+
+  log(question);
 
   let answsersComponents = await generateAnswersComponents(answers);
 
@@ -109,6 +115,13 @@ async function handleAnswer(
     where: {
       id: anwserId,
     },
+    include: {
+      question: {
+        include: {
+          lesson: true,
+        },
+      },
+    },
   });
 
   if (!answer) return "";
@@ -123,10 +136,7 @@ async function handleAnswer(
       components: [],
     });
 
-    let shouldGoToNextQuestion = await lessonHaveNextQuestion(
-      answer.lessonId,
-      answer.questionId
-    );
+    let shouldGoToNextQuestion = await lessonHaveNextQuestion(answer.question);
     log(shouldGoToNextQuestion);
     if (shouldGoToNextQuestion) {
       let reply = await generateQuestion(

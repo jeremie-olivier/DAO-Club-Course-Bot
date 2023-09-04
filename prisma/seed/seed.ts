@@ -50,72 +50,61 @@ main()
   });
 
 async function createRoles() {
-  await Promise.all(
-    roles.map((c: Role) =>
-      prisma.role.create({
-        data: c,
-      })
-    )
-  );
+  for (const role of roles) {
+    await prisma.role.create({
+      data: role,
+    });
+  }
+
   log(`${roles.length} Roles created`);
 }
 
 async function createDiscordMsg() {
-  await Promise.all(
-    discordMsg.map((c: DiscordMsg) =>
-      prisma.discordMsg.create({
-        data: c,
-      })
-    )
-  );
+  for (const msg of discordMsg) {
+    await prisma.discordMsg.create({
+      data: msg,
+    });
+  }
 
-  console.log(`${roles.length} Discord Message created`);
+  console.log(`${discordMsg.length} Discord Message created`);
 }
 
 async function createCourses() {
-  await Promise.all(
-    courses.map((c: Course) =>
-      prisma.course.create({
-        data: c,
-      })
-    )
-  );
+  for (const course of courses) {
+    await prisma.course.create({
+      data: course,
+    });
+  }
 
   console.log(`${roles.length} Discord Message created`);
 }
 
 async function createLessons() {
-  await Promise.all(
-    lessons.map((c: Lesson) =>
-      prisma.lesson.create({
-        data: c,
-      })
-    )
-  );
+  for (const lesson of lessons) {
+    await prisma.lesson.create({
+      data: lesson,
+    });
+  }
 
   console.log(`${roles.length} Discord Message created`);
 }
 
 async function createQuestions() {
-  await Promise.all(
-    questions.map((c: Question) =>
-      prisma.question.create({
-        data: c,
-      })
-    )
-  );
+  for (const question of questions) {
+    await prisma.question.create({
+      data: question,
+    });
+  }
 
   console.log(`${roles.length} Discord Message created`);
 }
 
 async function createAnswers() {
-  await Promise.all(
-    answsers.map((c: Answer) =>
-      prisma.answer.create({
-        data: c,
-      })
-    )
-  );
+  for (const answer of answsers) {
+    await prisma.answer.create({
+      data: answer,
+    });
+  }
 
   console.log(`${roles.length} Answsers created`);
 }

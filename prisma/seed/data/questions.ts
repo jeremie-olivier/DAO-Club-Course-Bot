@@ -14,6 +14,11 @@ export const questions: any = [
     order: 3,
     text: `What was the first token standard developed on Ethereum?`,
   },
+  {
+    lessonId: 2,
+    order: 1,
+    text: `What is a Javascript function?`,
+  },
 ];
 
 export default questions;

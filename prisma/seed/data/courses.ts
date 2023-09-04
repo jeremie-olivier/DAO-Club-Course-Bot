@@ -1,6 +1,6 @@
 export const courses: any = [
   {
-    name: "Seaon 1",
+    name: "DAO Club : Seaon 1",
   },
 ];
 

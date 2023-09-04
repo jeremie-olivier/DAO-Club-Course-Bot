@@ -64,6 +64,27 @@ export const answsers: any = [
     text: `ERC-115`,
     isTheCorrectAnswer: false,
   },
+  {
+    questionId: 4,
+    lessonId: 2,
+    order: "A",
+    text: `Code that deploys a smart contract`,
+    isTheCorrectAnswer: false,
+  },
+  {
+    questionId: 4,
+    lessonId: 2,
+    order: "B",
+    text: `A way to mint an NFT`,
+    isTheCorrectAnswer: false,
+  },
+  {
+    questionId: 4,
+    lessonId: 2,
+    order: "C",
+    text: `A block of reusable code that performs a specific task when called`,
+    isTheCorrectAnswer: true,
+  },
 ];
 
 export default answsers;

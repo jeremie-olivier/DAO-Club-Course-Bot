@@ -11,18 +11,16 @@ export const discordMsg: any = [
   },
 
   {
-    slug: "lesson-1-part-1",
-    content: `Welcome to your first lesson. 🙌 
+    slug: "lesson-part-1",
+    content: `Welcome to Lesson {{lessonOrder}}  : {{lessonName}}. 🙌 
 
     Please watch this video below and complete the questions that follow. 👀 
     
-    https://youtu.be/Xzi6CG9FRiA
-    
-    When you've watched the entire video, click the button below.
-`,
+    {{lessonVideoUrl}}
+    `,
   },
   {
-    slug: "lesson-1-part-2",
+    slug: "lesson-part-2",
     content: `When you've watched the entire video, click the button below.`,
   },
 ];

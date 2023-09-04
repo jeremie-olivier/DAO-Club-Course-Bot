@@ -1,12 +1,11 @@
-import { Answer, PrismaClient } from "@prisma/client";
+import { Answer, PrismaClient, Question } from "@prisma/client";
 const prisma = new PrismaClient();
 
 import { log } from "console";
 
-export function getAnswers(lessonId: number, questionId: number) {
+export function getAnswers(questionId: number) {
   return prisma.answer.findMany({
     where: {
-      lessonId,
       questionId,
     },
     orderBy: {
@@ -16,13 +15,12 @@ export function getAnswers(lessonId: number, questionId: number) {
 }
 
 export async function lessonHaveNextQuestion(
-  lessonId: number,
-  questionId: number
+  question: Question
 ): Promise<boolean> {
-  log(`lessonId ${lessonId} questionId ${lessonId}`);
+  log(`lessonId ${question.lessonId} question order ${question.order}`);
   let lastLessonQuestion = await prisma.question.findMany({
     where: {
-      lessonId,
+      lessonId: question.lessonId,
     },
     orderBy: {
       order: "desc",
@@ -30,5 +28,5 @@ export async function lessonHaveNextQuestion(
     take: 1,
   });
 
-  return lastLessonQuestion[0].id == questionId ? false : true;
+  return lastLessonQuestion[0].order == question.order ? false : true;
 }
