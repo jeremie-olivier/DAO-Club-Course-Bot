@@ -9,27 +9,27 @@ export const roles: any = [
   },
   {
     name: "lesson-3",
-    discordId: "1146942302892339281",
+    discordId: "1146942512590762014",
   },
   {
     name: "lesson-4",
-    discordId: "1146942330239205396",
+    discordId: "1146942168703963156",
   },
   {
     name: "lesson-5",
-    discordId: "1148441239146987550",
+    discordId: "1148450478695387191",
   },
   {
     name: "lesson-6",
-    discordId: "1148441268943335605",
+    discordId: "1148450531153559563",
   },
   {
     name: "lesson-7",
-    discordId: "1148441294499221604",
+    discordId: "1148450563940421752",
   },
   {
     name: "lesson-8",
-    discordId: "1148442514144120923",
+    discordId: "1148450605912838214",
   },
 ];
 
