@@ -10,7 +10,7 @@ import { render } from "template-file";
 
 let lessonsChoices = lessons.map((lesson: Lesson) => {
   return {
-    name: lesson.name,
+    name: `Lesson ${lesson.order} - ${lesson.name}`,
     value: lesson.name,
   };
 });

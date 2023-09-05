@@ -370,7 +370,7 @@ export const answsers: any = [
     lessonId: 5,
     order: "B",
     text: `Power is distributed to teams and individuals where the action happens.`,
-    isTheCorrectAnswer: false,
+    isTheCorrectAnswer: true,
   },
   {
     questionId: 18,
@@ -601,7 +601,7 @@ export const answsers: any = [
     lessonId: 7,
     order: "B",
     text: `Giving authority without ensuring transparency.`,
-    isTheCorrectAnswer: false,
+    isTheCorrectAnswer: true,
   },
   {
     questionId: 29,

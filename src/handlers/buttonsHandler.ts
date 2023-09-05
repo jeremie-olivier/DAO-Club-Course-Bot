@@ -142,7 +142,7 @@ async function handleAnswer(
       let reply = await generateQuestion(
         interaction,
         answer.lessonId,
-        answer.questionId + 1
+        answer.question.order + 1
       );
       interaction.followUp(reply);
     } else {
