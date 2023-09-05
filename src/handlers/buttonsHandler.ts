@@ -14,6 +14,8 @@ const prisma = new PrismaClient();
 export async function buttonsHandler(interaction: ButtonInteraction) {
   log(interaction.customId);
 
+  await interaction.deferReply({ ephemeral: true });
+
   if (interaction.customId.includes("answer-id")) {
     handleAnswer(interaction);
   }
@@ -23,16 +25,15 @@ export async function buttonsHandler(interaction: ButtonInteraction) {
     log(lessonId);
 
     let reply = await generateQuestion(interaction, lessonId, 1);
-    interaction.reply(reply);
+    interaction.editReply(reply);
   }
 
   switch (interaction.customId) {
     case "get-lesson-1-role":
       addRoleToMember(interaction.member as GuildMember, "lesson-1");
 
-      let lessons1Channnel = "1146931985000968233";
-      interaction.reply({
-        ephemeral: true,
+      let lessons1Channnel = getChannelId(`lesson-1`);
+      interaction.editReply({
         content: `You know have access to  <#${lessons1Channnel}>`,
       });
 
@@ -62,7 +63,7 @@ async function generateQuestion(
   let questionObj = await getQuestion(lessonId, order);
   log(questionObj);
 
-  let question = `Question ${questionObj.order} - ${questionObj.text} \n\n`;
+  let question = `Correct! Well done! 🎉 \n\nQuestion ${questionObj.order} - ${questionObj.text} \n\n`;
 
   let answers = await getAnswers(questionObj.id);
   let answersText = await generateAnswersText(answers);
@@ -131,8 +132,8 @@ async function handleAnswer(
   await saveUserAnswer(interaction.member?.user as User, answer);
 
   if (answer?.isTheCorrectAnswer) {
-    await interaction.update({
-      content: `Correct! Well done! 🎉 `,
+    await interaction.editReply({
+      content: `Correct! Well done! 🎉 \n\n ... `,
       components: [],
     });
 
@@ -144,7 +145,7 @@ async function handleAnswer(
         answer.lessonId,
         answer.question.order + 1
       );
-      interaction.followUp(reply);
+      interaction.editReply(reply);
     } else {
       let currentLessonQuestionChannelId = getChannelId(
         `lesson-${answer.lessonId}-questions`
@@ -155,9 +156,8 @@ async function handleAnswer(
         `lesson-${answer.lessonId + 1}`
       );
 
-      interaction.followUp({
-        ephemeral: true,
-        content: `Congratulations, you've now answered all the questions correctly. 🙌 
+      interaction.editReply({
+        content: `Correct! Well done! 🎉 \n\nCongratulations, you've now answered all the questions correctly. 🙌 
 
 Jump into the <#${currentLessonQuestionChannelId}> channel and ask the community any further questions you may have on Lesson ${answer.lessonId}. 💬 
         
@@ -166,8 +166,7 @@ If you don't have any further questions, then move onto <#${nextLessonChannelId}
       });
     }
   } else {
-    interaction.reply({
-      ephemeral: true,
+    interaction.editReply({
       content: `Oops, nope that's not the correct answer. 😬
 
 Try again... !`,
