@@ -159,7 +159,7 @@ async function handleAnswer(
         ephemeral: true,
         content: `Congratulations, you've now answered all the questions correctly. 🙌 
 
-Jump into the <#${currentLessonQuestionChannelId}> channel and ask the community any further questions you may have on Lesson 1. 💬 
+Jump into the <#${currentLessonQuestionChannelId}> channel and ask the community any further questions you may have on Lesson ${answer.lessonId}. 💬 
         
 If you don't have any further questions, then move onto <#${nextLessonChannelId}> to start watching your next video. 📹 
         `,
