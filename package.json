@@ -8,9 +8,10 @@
     "start": "node src/index.js",
     "building": "tsc -p . && cp .env ./dist/.env && cp package.json ./dist/package.json && cp  -r node_modules dist/node_modules/ &&  cd dist  && zip -r dist.zip .",
     "build": "npx prisma generate",
-    "dev": "pm2 start src/index.ts --watch",
+    "dev": "ts-node src/index.ts --watch",
+
     "resetdb": "npx prisma db push --force-reset && npx prisma db seed",
-    "deploySlashCommands": "ts-node ./src/deploy.ts"
+    "deploy": "ts-node src/deploy.ts"
   },
   "keywords": [],
   "author": "",

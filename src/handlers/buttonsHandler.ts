@@ -19,7 +19,7 @@ export async function buttonsHandler(interaction: ButtonInteraction) {
   if (interaction.customId.includes("answer-id")) {
     handleAnswer(interaction);
   }
-  if (interaction.customId.includes("start-quizz")) {
+  if (interaction.customId.includes("start-quiz")) {
     let courseId = parseInt(interaction.customId.split("-")[3]);
     let lessonId = parseInt(interaction.customId.split("-")[5]);
     log(lessonId);
@@ -34,7 +34,7 @@ export async function buttonsHandler(interaction: ButtonInteraction) {
 
       let lessons1Channnel = getChannelId(`lesson-1`);
       interaction.editReply({
-        content: `You know have access to  <#${lessons1Channnel}>`,
+        content: `You now have access to <#${lessons1Channnel}> 👈 Click here!`,
       });
 
       break;
@@ -63,7 +63,10 @@ async function generateQuestion(
   let questionObj = await getQuestion(lessonId, order);
   log(questionObj);
 
-  let question = `Correct! Well done! 🎉 \n\nQuestion ${questionObj.order} - ${questionObj.text} \n\n`;
+  let question =
+    questionObj.order == 1
+      ? `**Question ${questionObj.order} - ${questionObj.text}** \n\n`
+      : `Correct! Well done! 🎉 \n\n**Question ${questionObj.order} - ${questionObj.text} **\n\n`;
 
   let answers = await getAnswers(questionObj.id);
   let answersText = await generateAnswersText(answers);
@@ -161,7 +164,7 @@ async function handleAnswer(
 
 Jump into the <#${currentLessonQuestionChannelId}> channel and ask the community any further questions you may have on Lesson ${answer.lessonId}. 💬 
         
-If you don't have any further questions, then move onto <#${nextLessonChannelId}> to start watching your next video. 📹 
+If you don't have any further questions, then move onto <#${nextLessonChannelId}> and watch the next video.
         `,
       });
     }

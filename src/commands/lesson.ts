@@ -76,8 +76,16 @@ export async function execute(interaction: CommandInteraction) {
   await interaction.channel?.send(rep1);
 
   let lessongMsg2 = await getLessonMessage(2);
+  if (!lessongMsg2) {
+    return interaction.reply({
+      content: "Lesson message not found",
+      ephemeral: true,
+    });
+  }
+  let lessongMsg2WithData = render(lessongMsg2?.content, data);
+
   let rep2 = {
-    content: lessongMsg2?.content,
+    content: lessongMsg2WithData,
     tts: false,
     components: [
       {
@@ -85,8 +93,8 @@ export async function execute(interaction: CommandInteraction) {
         components: [
           {
             style: 3,
-            label: `Start the quizz`,
-            custom_id: `start-quizz-course-${lesson.courseId}-lesson-${lesson.order}`,
+            label: `Start the quiz`,
+            custom_id: `start-quiz-course-${lesson.courseId}-lesson-${lesson.order}`,
             disabled: false,
             type: 2,
           },

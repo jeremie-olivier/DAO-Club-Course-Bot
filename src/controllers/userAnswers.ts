@@ -16,7 +16,7 @@ async function saveUserAnswers(user: User, anwser: Answer) {
       discordId: user.id,
     },
     update: {
-      discordUsername: user.username,
+      discordUsername: user.displayName,
       discordAvatarUrl: user.avatarURL(),
       answsers: {
         connect: anwser,

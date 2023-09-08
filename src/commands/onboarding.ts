@@ -19,9 +19,11 @@ async function getOnboardingMessage() {
 
 export async function execute(interaction: CommandInteraction) {
   let discordMsg = await getOnboardingMessage();
+  interaction.reply({ ephemeral: false, content: discordMsg?.content });
+
   log(discordMsg);
   let rep = {
-    content: discordMsg?.content,
+    content: "Finished watching this video?",
     tts: false,
     components: [
       {
@@ -38,6 +40,5 @@ export async function execute(interaction: CommandInteraction) {
       },
     ],
   };
-  interaction.reply({ ephemeral: true, content: "success" });
   return interaction.channel?.send(rep);
 }
