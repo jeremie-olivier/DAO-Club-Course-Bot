@@ -66,7 +66,7 @@ export const lessons: any = [
       "https://discord.com/channels/562263648173555742/1149666428396515338/1149666428396515338",
   },
   {
-    name: "Information & Data Management",
+    name: "Information & Meetings",
     order: 7,
     videoUrl: "https://youtu.be/7bGC8tfnXPk",
     courseId: 1,
