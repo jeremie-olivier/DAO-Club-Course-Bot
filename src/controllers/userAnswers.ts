@@ -19,7 +19,9 @@ async function saveUserAnswers(user: User, anwser: Answer) {
       discordUsername: user.displayName,
       discordAvatarUrl: user.avatarURL(),
       answsers: {
-        connect: anwser,
+        connect: {
+          id: anwser.id,
+        },
       },
     },
     create: {
@@ -27,7 +29,9 @@ async function saveUserAnswers(user: User, anwser: Answer) {
       discordId: user.id,
       discordAvatarUrl: user.avatarURL(),
       answsers: {
-        connect: anwser,
+        connect: {
+          id: anwser.id,
+        },
       },
     },
   });
