@@ -18,6 +18,20 @@ export const discordMsg: any = [
     slug: "lesson-part-2",
     content: `** ** \nWhen you've watched the entire video, click the button below to start your Lesson {{lessonOrder}} quiz.\n** ** `,
   },
+  {
+    slug: "course-complete",
+    content: `
+Congratulations! 🙌
+
+You’ve successfully completed the **DAO Club Season 1** course. 👩‍🎓👨‍🎓 
+
+Please watch the video below.
+
+Just press the ▶️in the middle of the video preview. 👇
+
+https://youtu.be/DzBpbp4tAsE
+`,
+  },
 ];
 
 export default discordMsg;
