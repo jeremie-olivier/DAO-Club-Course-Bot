@@ -23,7 +23,7 @@ export async function execute(interaction: CommandInteraction) {
 
   log(discordMsg);
   let rep = {
-    content: "Finished watching this video?",
+    content: "** **\nFinished watching this video?\n** ** ",
     tts: false,
     components: [
       {

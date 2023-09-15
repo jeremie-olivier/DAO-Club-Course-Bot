@@ -21,7 +21,7 @@ export const questions: any = [
     id: 4,
     lessonId: 1,
     order: 4,
-    text: `In the analogy comparing DAOs to vessels on water, why are DAO members likened to speed boats instead of a large cruise ship?`,
+    text: `When comparing DAOs to vessels on water, why are DAO members likened to speed boats instead of a large cruise ship?`,
   },
   {
     id: 5,

@@ -20,22 +20,22 @@ import answsers from "./data/answers";
 const prisma = new PrismaClient();
 
 async function main() {
-  log(roles);
+  // log(roles);
   await createRoles();
 
-  log(discordMsg);
+  // log(discordMsg);
   await createDiscordMsg();
 
-  log(courses);
+  // log(courses);
   await createCourses();
 
-  log(lessons);
+  //log(lessons);
   await createLessons();
 
-  log(questions);
+  //log(questions);
   await createQuestions();
 
-  log(answsers);
+  //log(answsers);
   await createAnswers();
 }
 
@@ -76,7 +76,7 @@ async function createCourses() {
     });
   }
 
-  console.log(`${roles.length} Discord Message created`);
+  console.log(`${courses.length} Courses created`);
 }
 
 async function createLessons() {
@@ -86,7 +86,7 @@ async function createLessons() {
     });
   }
 
-  console.log(`${roles.length} Discord Message created`);
+  console.log(`${lessons.length} Lessons created`);
 }
 
 async function createQuestions() {
@@ -96,7 +96,7 @@ async function createQuestions() {
     });
   }
 
-  console.log(`${roles.length} Discord Message created`);
+  console.log(`${questions.length} Questions created`);
 }
 
 async function createAnswers() {
@@ -106,5 +106,5 @@ async function createAnswers() {
     });
   }
 
-  console.log(`${roles.length} Answsers created`);
+  console.log(`${answsers.length} Answsers created`);
 }

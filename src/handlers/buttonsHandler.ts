@@ -150,21 +150,24 @@ async function handleAnswer(
       );
       interaction.editReply(reply);
     } else {
-      let currentLessonQuestionChannelId = getChannelId(
-        `lesson-${answer.lessonId}-questions`
-      );
-      let nextLessonChannelId = getChannelId(`lesson-${answer.lessonId + 1}`);
-      addRoleToMember(
-        interaction.member as GuildMember,
-        `lesson-${answer.lessonId + 1}`
-      );
+      let lesson = answer.question.lesson;
+
+      let nextLesson = await prisma.lesson.findFirst({
+        where: {
+          courseId: lesson.courseId,
+          order: lesson.order + 1,
+        },
+      });
 
       interaction.editReply({
         content: `Correct! Well done! 🎉 \n\nCongratulations, you've now answered all the questions correctly. 🙌 
 
-Jump into the <#${currentLessonQuestionChannelId}> channel and ask the community any further questions you may have on Lesson ${answer.lessonId}. 💬 
-        
-If you don't have any further questions, then move onto <#${nextLessonChannelId}> and watch the next video.
+1️⃣First, start your workbook here 👉 ${answer.question.lesson.lessonWorkbookChannelLink}
+
+2️⃣Then jump into the <#${lesson.lessonChannelId}> channel and ask the community any further questions you may have on Lesson ${lesson.id}. 💬 
+
+3️⃣If you don't have any further questions, then move onto <#${nextLesson?.lessonChannelId}> and watch the next video. 
+
         `,
       });
     }
