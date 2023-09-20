@@ -87,7 +87,7 @@ export const questions: any = [
     id: 15,
     lessonId: 4,
     order: 2,
-    text: `According to Pablo, a lead engineer at MoonDAO, why might "Projects" be more effective for getting work done compared to "Guilds"?According to Pablo, a lead engineer at MoonDAO, why might "Projects" be more effective for getting work done compared to "Guilds"?`,
+    text: `According to Pablo, a lead engineer at MoonDAO, why might "Projects" be more effective for getting work done compared to "Guilds"?`,
   },
   {
     id: 16,
@@ -172,6 +172,24 @@ export const questions: any = [
     lessonId: 7,
     order: 4,
     text: `What mistake regarding empowerment is common among teams in a DAO's OS transformation?`,
+  },
+  {
+    id: 30,
+    lessonId: 8,
+    order: 1,
+    text: `What is the first step in the Looping process?`,
+  },
+  {
+    id: 31,
+    lessonId: 8,
+    order: 2,
+    text: `How can an organization benefit from regularly 'Sensing Tensions'?`,
+  },
+  {
+    id: 32,
+    lessonId: 8,
+    order: 3,
+    text: `Why is 'Conducting Experiments' an important step in the Looping process?`,
   },
 ];
 

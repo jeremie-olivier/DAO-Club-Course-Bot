@@ -79,12 +79,21 @@ export const lessons: any = [
   {
     name: "Implementing Change",
     order: 8,
-    videoUrl: "Video is **Coming Soon**",
+    videoUrl: "https://youtu.be/QaYSK-7lfZA",
     courseId: 1,
     roleId: 8,
     lessonChannelId: "1126112684727881769",
     lessonQuestionChannelId: "1148243385795223602",
-    lessonWorkbookChannelLink: "",
+    lessonWorkbookChannelLink:
+      "https://discord.com/channels/562263648173555742/1149666590363750461/1149666590363750461",
+  },
+  {
+    name: "Course Complete",
+    order: 9,
+    videoUrl: "https://youtu.be/1C-VVlxBnes",
+    courseId: 1,
+    roleId: 9,
+    lessonChannelId: "1152084016544104498",
   },
 ];
 

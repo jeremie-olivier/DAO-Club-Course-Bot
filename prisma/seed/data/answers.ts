@@ -610,15 +610,69 @@ export const answsers: any = [
     text: `Focusing only on synchronous communication.`,
     isTheCorrectAnswer: false,
   },
+  {
+    questionId: 30,
+    lessonId: 8,
+    order: "A",
+    text: ` Proposing Practices`,
+    isTheCorrectAnswer: false,
+  },
+  {
+    questionId: 30,
+    lessonId: 8,
+    order: "B",
+    text: `Conducting Experiments`,
+    isTheCorrectAnswer: false,
+  },
+  {
+    questionId: 30,
+    lessonId: 8,
+    order: "C",
+    text: `Sensing Tensions`,
+    isTheCorrectAnswer: true,
+  },
+  {
+    questionId: 31,
+    lessonId: 8,
+    order: "A",
+    text: `By continually identifying areas for growth and improvement.`,
+    isTheCorrectAnswer: true,
+  },
+  {
+    questionId: 31,
+    lessonId: 8,
+    order: "B",
+    text: `By avoiding changes and sticking to the status quo.`,
+    isTheCorrectAnswer: false,
+  },
+  {
+    questionId: 31,
+    lessonId: 8,
+    order: "C",
+    text: `By ensuring that all team members always agree.`,
+    isTheCorrectAnswer: false,
+  },
+  {
+    questionId: 32,
+    lessonId: 8,
+    order: "A",
+    text: ` It allows the organization to stick to traditional methods.`,
+    isTheCorrectAnswer: false,
+  },
+  {
+    questionId: 32,
+    lessonId: 8,
+    order: "B",
+    text: `It lets teams test new practices in a safe and controlled environment.`,
+    isTheCorrectAnswer: true,
+  },
+  {
+    questionId: 32,
+    lessonId: 8,
+    order: "C",
+    text: `It provides immediate and definite solutions.`,
+    isTheCorrectAnswer: false,
+  },
 ];
 
 export default answsers;
-
-//   id                 Int      @id @default(autoincrement())
-//   text               String
-//   question           Question @relation(fields: [questionId], references: [id])
-//   questionId         Int
-//   users              User[]
-//   course             Course   @relation(fields: [courseId], references: [id])
-//   courseId           Int
-//   isTheCorrectAnswer Boolean
