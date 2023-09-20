@@ -1,5 +1,5 @@
 import { ButtonInteraction, GuildMember, User } from "discord.js";
-import { addRoleToMember } from "./roleManager";
+import { addRoleToMember, removeRolesFromMember } from "./roleManager";
 import { log } from "console";
 
 import { Answer, PrismaClient } from "@prisma/client";
@@ -135,6 +135,19 @@ async function handleAnswer(
   await saveUserAnswer(interaction.member?.user as User, answer);
 
   if (answer?.isTheCorrectAnswer) {
+    if (answer.question.lesson.order == 8) {
+      await removeRolesFromMember(interaction.member as GuildMember);
+      await addRoleToMember(
+        interaction.member as GuildMember,
+        "DAO Club - Season 1"
+      );
+    } else {
+      await addRoleToMember(
+        interaction.member as GuildMember,
+        `lesson-${answer.question.lesson.order + 1}`
+      );
+    }
+
     await interaction.editReply({
       content: `Correct! Well done! 🎉 \n\n ... `,
       components: [],
@@ -162,11 +175,11 @@ async function handleAnswer(
       interaction.editReply({
         content: `Correct! Well done! 🎉 \n\nCongratulations, you've now answered all the questions correctly. 🙌 
 
-1️⃣First, start your workbook here 👉 ${answer.question.lesson.lessonWorkbookChannelLink}
+1️⃣ First, start your workbook here 👉 ${answer.question.lesson.lessonWorkbookChannelLink}
 
-2️⃣Then jump into the <#${lesson.lessonChannelId}> channel and ask the community any further questions you may have on Lesson ${lesson.id}. 💬 
+2️⃣ Then jump into the <#${lesson.lessonQuestionChannelId}> channel and ask the community any further questions you may have on Lesson ${lesson.id}. 💬 
 
-3️⃣If you don't have any further questions, then move onto <#${nextLesson?.lessonChannelId}> and watch the next video. 
+3️⃣ If you don't have any further questions, then move onto <#${nextLesson?.lessonChannelId}> and watch the next video. 
 
         `,
       });

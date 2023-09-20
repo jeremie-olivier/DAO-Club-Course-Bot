@@ -1,4 +1,4 @@
-import { CommandInteraction, GuildMember, User } from "discord.js";
+import { CommandInteraction, GuildMember, Snowflake, User } from "discord.js";
 
 import { Role, PrismaClient } from "@prisma/client";
 import { log } from "console";
@@ -10,9 +10,10 @@ export async function addRoleToMember(
 ): Promise<void> {
   log(`adding role ${roleName} to member ${member.user.username}`);
   let roleId = await getRoleId(roleName);
+  log(roleId);
 
   if (!roleId) log(`role ${roleName} not found`);
-  else member.roles.add(roleId);
+  else await member.roles.add(roleId);
 }
 
 async function getRoleId(name: string) {
@@ -24,9 +25,18 @@ async function getRoleId(name: string) {
   return role?.discordId;
 }
 
-// export async function removeRolesFromMember(): Promise<void> {
-//   (this.member as GuildMember).roles.remove(this.roleIds as Snowflake[]);
-// }
+export async function removeRolesFromMember(
+  member: GuildMember
+): Promise<void> {
+  const roles = await prisma.role.findMany({
+    where: {
+      fullAccessToCourse: false,
+    },
+  });
+
+  let roleIds = roles.map((r) => r.discordId);
+  await member.roles.remove(roleIds as Snowflake[]);
+}
 
 async function getMember(
   interaction: CommandInteraction,
