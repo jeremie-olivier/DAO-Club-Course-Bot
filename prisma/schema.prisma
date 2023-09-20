@@ -29,14 +29,15 @@ model User {
 }
 
 model Role {
-  id        Int      @id @default(autoincrement())
-  discordId String   @unique
-  name      String   @unique
-  users     User[]
-  lesson    Lesson?
-  lessonId  Int?
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  id                 Int      @id @default(autoincrement())
+  discordId          String   @unique
+  name               String   @unique
+  users              User[]
+  lesson             Lesson?
+  lessonId           Int?
+  fullAccessToCourse Boolean  @default(false)
+  createdAt          DateTime @default(now())
+  updatedAt          DateTime @updatedAt
 }
 
 model Lesson {

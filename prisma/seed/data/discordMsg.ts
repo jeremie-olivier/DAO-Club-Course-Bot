@@ -11,7 +11,7 @@ export const discordMsg: any = [
 
   {
     slug: "lesson-part-1",
-    content: `Welcome to **Lesson {{lessonOrder}}  - {{lessonName}}.** 🙌 \n\nPlease watch the video below.\n\nJust press the ▶️in the middle of the video preview. 👇\n\n{{lessonVideoUrl}}
+    content: `Welcome to **Lesson {{lessonOrder}}  - {{lessonName}}.** 🙌 \n\nPlease watch the video below.\n\nJust press the ▶️ in the middle of the video preview. 👇\n\n{{lessonVideoUrl}}
     `,
   },
   {
@@ -27,9 +27,9 @@ You’ve successfully completed the **DAO Club Season 1** course. 👩‍🎓�
 
 Please watch the video below.
 
-Just press the ▶️in the middle of the video preview. 👇
+Just press the ▶️ in the middle of the video preview. 👇
 
-https://youtu.be/DzBpbp4tAsE
+https://youtu.be/1C-VVlxBnes
 `,
   },
 ];
